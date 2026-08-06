@@ -77,7 +77,6 @@
     ],
     "final": "dns-proxy",
     "strategy": "prefer_ipv4",
-    "independent_cache": true,
     "reverse_mapping": true
   },
   "inbounds": [
@@ -212,10 +211,9 @@
       "interrupt_exist_connections": false
     },
     {
-      "tag": "self",
+      "tag": "🧪 测试节点",
       "type": "selector",
-      "outbounds": [],
-      "default": ""
+      "outbounds": []
     },
     {
       "tag": "🐸 手动选择",
@@ -252,6 +250,7 @@
         "🐠 漏网之鱼",
         "🐸 手动选择",
         "♻️ 自动选择",
+        "🧪 测试节点",
         "🎯 全球直连"
       ],
       "default": "🚀 默认代理"
@@ -333,12 +332,6 @@
           "xxlb.net"
         ],
         "outbound": "🇸🇬 私有线路"
-      },
-      {
-        "domain": [
-          "s-ui.863636.xyz"
-        ],
-        "outbound": "self"
       },
       {
         "rule_set": "geosite-ai",
