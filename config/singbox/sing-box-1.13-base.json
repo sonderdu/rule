@@ -28,6 +28,14 @@
         "domain_resolver": "dns-local-bootstrap"
       },
       {
+        "tag": "dns-gemini",
+        "type": "https",
+        "server": "8.8.8.8",
+        "server_port": 443,
+        "detour": "🧠 Gemini稳定",
+        "domain_resolver": "dns-local-bootstrap"
+      },
+      {
         "tag": "dns-fakeip",
         "type": "fakeip",
         "inet4_range": "198.18.0.0/16",
@@ -40,9 +48,8 @@
         "server": "dns-cn"
       },
       {
-           "domain": "best-cf.edge.863636.xyz",
-         "server": "dns-cn"
-
+        "domain": "best-cf.edge.863636.xyz",
+        "server": "dns-cn"
       },
       {
         "clash_mode": "global",
@@ -58,11 +65,19 @@
       },
       {
         "domain_suffix": [
-          "services.googleapis.cn",
-          "googleapis.cn",
-          "xn--ngstr-lra8j.com"
+          "mobileappcommunicator.auth.microsoft.com",
+          "microsoftonline.com",
+          "msauth.net",
+          "msftauth.net",
+          "msauthimages.net",
+          "msftauthimages.net",
+          "login.microsoft.com",
+          "login.live.com",
+          "account.live.com",
+          "mysignins.microsoft.com",
+          "enterpriseregistration.windows.net"
         ],
-        "server": "dns-proxy"
+        "server": "dns-cn"
       },
       {
         "domain_suffix": [
@@ -72,16 +87,23 @@
           "gvt1.com",
           "gvt2.com",
           "gvt3.com",
-          "googleusercontent.com",
-          "googleapis.com",
-          "google.com",
-          "gstatic.com",
-          "ggpht.com",
           "googlevideo.com",
           "services.googleapis.cn",
-          "googleapis.cn"
+          "googleapis.cn",
+          "xn--ngstr-lra8j.com"
         ],
         "server": "dns-proxy"
+      },
+      {
+        "domain_suffix": [
+          "google.com",
+          "googleapis.com",
+          "googleusercontent.com",
+          "gstatic.com",
+          "ggpht.com",
+          "ai.google.dev"
+        ],
+        "server": "dns-gemini"
       },
       {
         "rule_set": [
@@ -145,7 +167,7 @@
         "🪶 星链普通",
         "🐸 手动选择"
       ],
-      "interrupt_exist_connections": false,
+      "interrupt_exist_connections": true,
       "default": "⭐ 自建主力"
     },
     {
@@ -160,8 +182,31 @@
         "🛟 赠送备用",
         "🐸 手动选择"
       ],
-      "interrupt_exist_connections": false,
+      "interrupt_exist_connections": true,
       "default": "⭐ 自建主力"
+    },
+    {
+      "tag": "🧠 Gemini稳定",
+      "type": "selector",
+      "outbounds": [
+        "⭐ 自建主力",
+        "🤝 合租高速",
+        "☁️ Oracle直连",
+        "🪶 星链普通",
+        "🐸 手动选择"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "⭐ 自建主力"
+    },
+    {
+      "tag": "🔐 Microsoft认证",
+      "type": "selector",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 默认代理"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🎯 全球直连"
     },
     {
       "tag": "📲 Telegram",
@@ -175,7 +220,7 @@
         "🚀 默认代理",
         "🐸 手动选择"
       ],
-      "interrupt_exist_connections": false,
+      "interrupt_exist_connections": true,
       "default": "🚀 默认代理"
     },
     {
@@ -185,20 +230,20 @@
         "🎯 全球直连",
         "🚀 默认代理"
       ],
-      "interrupt_exist_connections": false,
+      "interrupt_exist_connections": true,
       "default": "🎯 全球直连"
     },
     {
       "tag": "⭐ 自建主力",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🤝 合租高速",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🚄 机场5X",
@@ -224,7 +269,7 @@
       "tag": "🎬 Poly线路",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "☁️ Oracle优化",
@@ -240,13 +285,13 @@
       "tag": "☁️ Oracle直连",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🪶 星链普通",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🇭🇰 香港优选",
@@ -302,13 +347,13 @@
       "tag": "🧪 测试节点",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🐸 手动选择",
       "type": "selector",
       "outbounds": [],
-      "interrupt_exist_connections": false
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🐠 漏网之鱼",
@@ -317,7 +362,7 @@
         "🚀 默认代理",
         "🎯 全球直连"
       ],
-      "interrupt_exist_connections": false,
+      "interrupt_exist_connections": true,
       "default": "🚀 默认代理"
     },
     {
@@ -326,6 +371,8 @@
       "outbounds": [
         "🚀 默认代理",
         "🧠 AI",
+        "🧠 Gemini稳定",
+        "🔐 Microsoft认证",
         "📲 Telegram",
         "🍏 Apple",
         "⭐ 自建主力",
@@ -341,7 +388,7 @@
         "🧪 测试节点",
         "🎯 全球直连"
       ],
-      "interrupt_exist_connections": false,
+      "interrupt_exist_connections": true,
       "default": "🚀 默认代理"
     },
     {
@@ -393,16 +440,38 @@
           "gvt1.com",
           "gvt2.com",
           "gvt3.com",
-          "googleusercontent.com",
-          "googleapis.com",
-          "google.com",
-          "gstatic.com",
-          "ggpht.com",
           "googlevideo.com",
           "services.googleapis.cn",
           "googleapis.cn"
         ],
         "outbound": "🚀 默认代理"
+      },
+      {
+        "domain_suffix": [
+          "google.com",
+          "googleapis.com",
+          "googleusercontent.com",
+          "gstatic.com",
+          "ggpht.com",
+          "ai.google.dev"
+        ],
+        "outbound": "🧠 Gemini稳定"
+      },
+      {
+        "domain_suffix": [
+          "mobileappcommunicator.auth.microsoft.com",
+          "microsoftonline.com",
+          "msauth.net",
+          "msftauth.net",
+          "msauthimages.net",
+          "msftauthimages.net",
+          "login.microsoft.com",
+          "login.live.com",
+          "account.live.com",
+          "mysignins.microsoft.com",
+          "enterpriseregistration.windows.net"
+        ],
+        "outbound": "🔐 Microsoft认证"
       },
       {
         "port": [
