@@ -40,6 +40,11 @@
         "server": "dns-cn"
       },
       {
+           "domain": "best-cf.edge.863636.xyz",
+         "server": "dns-cn"
+
+      },
+      {
         "clash_mode": "global",
         "server": "dns-fakeip"
       },
