@@ -13,6 +13,12 @@
         "server_port": 53
       },
       {
+        "tag": "dns-cf-smart",
+        "type": "udp",
+        "server": "119.29.29.29",
+        "server_port": 53
+      },
+      {
         "tag": "dns-cn",
         "type": "https",
         "server": "dns.alidns.com",
@@ -48,8 +54,11 @@
         "server": "dns-cn"
       },
       {
-        "domain": "best-cf.edge.863636.xyz",
-        "server": "dns-cn"
+        "domain": [
+          "best-cf.edge.863636.xyz",
+          "live-cf.edge.863636.xyz"
+        ],
+        "server": "dns-cf-smart"
       },
       {
         "clash_mode": "global",
@@ -163,6 +172,7 @@
         "🇸🇬 新加坡优选",
         "🇺🇸 美国优选",
         "☁️ Oracle优化",
+        "📺 Oracle直播",
         "☁️ Oracle直连",
         "🪶 星链普通",
         "🐸 手动选择"
@@ -191,7 +201,6 @@
       "outbounds": [
         "⭐ 自建主力",
         "🤝 合租高速",
-        "☁️ Oracle直连",
         "🪶 星链普通",
         "🐸 手动选择"
       ],
@@ -280,6 +289,12 @@
       "tolerance": 100,
       "idle_timeout": "30m",
       "interrupt_exist_connections": false
+    },
+    {
+      "tag": "📺 Oracle直播",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "☁️ Oracle直连",
@@ -381,6 +396,7 @@
         "🛟 赠送备用",
         "🎬 Poly线路",
         "☁️ Oracle优化",
+        "📺 Oracle直播",
         "☁️ Oracle直连",
         "🪶 星链普通",
         "🐠 漏网之鱼",
