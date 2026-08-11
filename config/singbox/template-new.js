@@ -18,8 +18,8 @@
 //   cfLiveDomain=live-cf.edge.example.com
 //   cfDnsServer=119.29.29.29
 //
-// cfDnsServer 会创建/复用 dns-cf-smart，并让 CF 节点通过 DNSPod Public DNS
-// 解析 best-cf/live-cf，以便 DNSPod 智能线路生效。
+// cfDnsServer 会创建/复用 dns-cf-smart，并让 CF 节点通过指定递归 DNS
+// 解析 best-cf/live-cf。DNSPod 可使用 119.29.29.29；华为云请按目标网络选择 resolver。
 //
 // 仍兼容 v5.3 的 cfCuDomain / cfFastDomain / cfBestDomain / cfMode。
 // Windows 默认 IPv4-only。
