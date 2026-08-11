@@ -1,0 +1,623 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "warn",
+    "timestamp": true
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "dns-local-bootstrap",
+        "type": "udp",
+        "server": "223.5.5.5",
+        "server_port": 53
+      },
+      {
+        "tag": "dns-cf-smart",
+        "type": "udp",
+        "server": "119.29.29.29",
+        "server_port": 53
+      },
+      {
+        "tag": "dns-cn",
+        "type": "https",
+        "server": "dns.alidns.com",
+        "server_port": 443,
+        "domain_resolver": "dns-local-bootstrap"
+      },
+      {
+        "tag": "dns-proxy",
+        "type": "https",
+        "server": "8.8.8.8",
+        "server_port": 443,
+        "detour": "🚀 默认代理",
+        "domain_resolver": "dns-local-bootstrap"
+      },
+      {
+        "tag": "dns-gemini",
+        "type": "https",
+        "server": "8.8.8.8",
+        "server_port": 443,
+        "detour": "🧠 Gemini稳定",
+        "domain_resolver": "dns-local-bootstrap"
+      },
+      {
+        "tag": "dns-fakeip",
+        "type": "fakeip",
+        "inet4_range": "198.18.0.0/16",
+        "inet6_range": "fc00::/18"
+      }
+    ],
+    "rules": [
+      {
+        "clash_mode": "direct",
+        "server": "dns-cn"
+      },
+      {
+        "domain": [
+          "best-cf.edge.example.com",
+          "live-cf.edge.example.com"
+        ],
+        "server": "dns-cf-smart"
+      },
+      {
+        "clash_mode": "global",
+        "server": "dns-fakeip"
+      },
+      {
+        "domain_suffix": [
+          "lan",
+          "local",
+          "localhost"
+        ],
+        "server": "dns-cn"
+      },
+      {
+        "domain_suffix": [
+          "mobileappcommunicator.auth.microsoft.com",
+          "microsoftonline.com",
+          "msauth.net",
+          "msftauth.net",
+          "msauthimages.net",
+          "msftauthimages.net",
+          "login.microsoft.com",
+          "login.live.com",
+          "account.live.com",
+          "mysignins.microsoft.com",
+          "enterpriseregistration.windows.net"
+        ],
+        "server": "dns-cn"
+      },
+      {
+        "domain_suffix": [
+          "play.googleapis.com",
+          "android.clients.google.com",
+          "android.googleapis.com",
+          "gvt1.com",
+          "gvt2.com",
+          "gvt3.com",
+          "googlevideo.com",
+          "services.googleapis.cn",
+          "googleapis.cn",
+          "xn--ngstr-lra8j.com"
+        ],
+        "server": "dns-proxy"
+      },
+      {
+        "domain_suffix": [
+          "google.com",
+          "googleapis.com",
+          "googleusercontent.com",
+          "gstatic.com",
+          "ggpht.com",
+          "ai.google.dev"
+        ],
+        "server": "dns-gemini"
+      },
+      {
+        "rule_set": [
+          "geosite-cn",
+          "geosite-apple"
+        ],
+        "server": "dns-cn"
+      },
+      {
+        "query_type": [
+          "A",
+          "AAAA"
+        ],
+        "server": "dns-fakeip",
+        "rewrite_ttl": 300
+      }
+    ],
+    "final": "dns-proxy",
+    "strategy": "prefer_ipv4",
+    "reverse_mapping": true
+  },
+  "inbounds": [
+    {
+      "tag": "tun-in",
+      "type": "tun",
+      "interface_name": "singbox",
+      "address": [
+        "172.19.0.1/30",
+        "fdfe:dcba:9876::1/126"
+      ],
+      "mtu": 1400,
+      "stack": "mixed",
+      "udp_timeout": "5m",
+      "auto_route": true,
+      "auto_redirect": false,
+      "strict_route": true
+    },
+    {
+      "tag": "mixed-in",
+      "type": "mixed",
+      "listen": "127.0.0.1",
+      "listen_port": 7890
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "🚀 默认代理",
+      "type": "selector",
+      "outbounds": [
+        "⭐ 自建主力",
+        "🤝 合租高速",
+        "🚄 机场5X",
+        "🛟 赠送备用",
+        "🇭🇰 香港优选",
+        "🇹🇼 台湾优选",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "📺 Oracle直播",
+        "☁️ Oracle直连",
+        "🪶 星链普通",
+        "🐸 手动选择"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "⭐ 自建主力"
+    },
+    {
+      "tag": "🧠 AI",
+      "type": "selector",
+      "outbounds": [
+        "⭐ 自建主力",
+        "🤝 合租高速",
+        "🚄 机场5X",
+        "🇺🇸 美国优选",
+        "🇸🇬 新加坡优选",
+        "🛟 赠送备用",
+        "🐸 手动选择"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "⭐ 自建主力"
+    },
+    {
+      "tag": "🧠 Gemini稳定",
+      "type": "selector",
+      "outbounds": [
+        "⭐ 自建主力",
+        "🤝 合租高速",
+        "🪶 星链普通",
+        "🐸 手动选择"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "⭐ 自建主力"
+    },
+    {
+      "tag": "🔐 Microsoft认证",
+      "type": "selector",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 默认代理"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🎯 全球直连"
+    },
+    {
+      "tag": "📲 Telegram",
+      "type": "selector",
+      "outbounds": [
+        "⭐ 自建主力",
+        "🤝 合租高速",
+        "🇸🇬 新加坡优选",
+        "🇯🇵 日本优选",
+        "🛟 赠送备用",
+        "🚀 默认代理",
+        "🐸 手动选择"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🚀 默认代理"
+    },
+    {
+      "tag": "🍏 Apple",
+      "type": "selector",
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 默认代理"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🎯 全球直连"
+    },
+    {
+      "tag": "⭐ 自建主力",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🤝 合租高速",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🚄 机场5X",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 120,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🛟 赠送备用",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 120,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🎬 Poly线路",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "☁️ Oracle优化",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "📺 Oracle直播",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "☁️ Oracle直连",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🪶 星链普通",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🇭🇰 香港优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇹🇼 台湾优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇯🇵 日本优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇸🇬 新加坡优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇺🇸 美国优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 120,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🧪 测试节点",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🐸 手动选择",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🐠 漏网之鱼",
+      "type": "selector",
+      "outbounds": [
+        "🚀 默认代理",
+        "🎯 全球直连"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🚀 默认代理"
+    },
+    {
+      "tag": "GLOBAL",
+      "type": "selector",
+      "outbounds": [
+        "🚀 默认代理",
+        "🧠 AI",
+        "🧠 Gemini稳定",
+        "🔐 Microsoft认证",
+        "📲 Telegram",
+        "🍏 Apple",
+        "⭐ 自建主力",
+        "🤝 合租高速",
+        "🚄 机场5X",
+        "🛟 赠送备用",
+        "🎬 Poly线路",
+        "☁️ Oracle优化",
+        "📺 Oracle直播",
+        "☁️ Oracle直连",
+        "🪶 星链普通",
+        "🐠 漏网之鱼",
+        "🐸 手动选择",
+        "🧪 测试节点",
+        "🎯 全球直连"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🚀 默认代理"
+    },
+    {
+      "tag": "🎯 全球直连",
+      "type": "direct"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "action": "sniff",
+        "sniffer": [
+          "http",
+          "tls",
+          "quic"
+        ],
+        "timeout": "500ms"
+      },
+      {
+        "type": "logical",
+        "mode": "or",
+        "rules": [
+          {
+            "port": 53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
+        "action": "hijack-dns"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "clash_mode": "direct",
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "GLOBAL"
+      },
+      {
+        "domain_suffix": [
+          "play.googleapis.com",
+          "android.clients.google.com",
+          "android.googleapis.com",
+          "gvt1.com",
+          "gvt2.com",
+          "gvt3.com",
+          "googlevideo.com",
+          "services.googleapis.cn",
+          "googleapis.cn"
+        ],
+        "outbound": "🚀 默认代理"
+      },
+      {
+        "domain_suffix": [
+          "google.com",
+          "googleapis.com",
+          "googleusercontent.com",
+          "gstatic.com",
+          "ggpht.com",
+          "ai.google.dev"
+        ],
+        "outbound": "🧠 Gemini稳定"
+      },
+      {
+        "domain_suffix": [
+          "mobileappcommunicator.auth.microsoft.com",
+          "microsoftonline.com",
+          "msauth.net",
+          "msftauth.net",
+          "msauthimages.net",
+          "msftauthimages.net",
+          "login.microsoft.com",
+          "login.live.com",
+          "account.live.com",
+          "mysignins.microsoft.com",
+          "enterpriseregistration.windows.net"
+        ],
+        "outbound": "🔐 Microsoft认证"
+      },
+      {
+        "port": [
+          22
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "domain_suffix": [
+          "tmate.io",
+          "teams.microsoft.com",
+          "mmszxc.xin"
+        ],
+        "domain_keyword": [
+          "mmszxc"
+        ],
+        "ip_cidr": [
+          "106.55.228.246/32"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "domain_suffix": [
+          "hongxingyunmovie.vip",
+          "6666456.xyz",
+          "st.stentvessel.xyz",
+          "hongxingyun.xyz",
+          "hongxingyun.homes"
+        ],
+        "outbound": "🇸🇬 新加坡优选"
+      },
+      {
+        "domain_suffix": [
+          "poly.emby.moe",
+          "xxlb.net"
+        ],
+        "outbound": "🎬 Poly线路"
+      },
+      {
+        "rule_set": "geosite-ai",
+        "outbound": "🧠 AI"
+      },
+      {
+        "rule_set": [
+          "geosite-telegram",
+          "geoip-telegram"
+        ],
+        "outbound": "📲 Telegram"
+      },
+      {
+        "rule_set": "geosite-apple",
+        "outbound": "🍏 Apple"
+      },
+      {
+        "rule_set": [
+          "geosite-cn",
+          "geoip-cn"
+        ],
+        "outbound": "🎯 全球直连"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geosite-ai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geoip-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/apple.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      }
+    ],
+    "final": "🐠 漏网之鱼",
+    "auto_detect_interface": true,
+    "default_domain_resolver": {
+      "server": "dns-cn"
+    }
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "store_fakeip": true
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9095",
+      "external_ui": "ui",
+      "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "🚀 默认代理",
+      "secret": "",
+      "default_mode": "rule"
+    }
+  }
+}
