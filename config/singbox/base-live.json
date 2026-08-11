@@ -55,8 +55,8 @@
       },
       {
         "domain": [
-          "best-cf.edge.example.com",
-          "live-cf.edge.example.com"
+          "best-cf.edge.863636.xyz",
+          "live-cf.edge.863636.xyz"
         ],
         "server": "dns-cf-smart"
       },
