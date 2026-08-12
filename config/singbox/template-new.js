@@ -3,10 +3,10 @@
 // 推荐的单入口 + LIVE 双 Profile：
 //   原始节点：ORACLE-P2-...-CF
 //
-//   cfDialDomain=best-cf.edge.example.com
+//   cfDialDomain=best-cf.edge.863636.xyz
 //     -> 原始 ...-CF 保持 tag 不变，只把 server 改为普通优选域名
 //
-//   cfLiveDomain=live-cf.edge.example.com
+//   cfLiveDomain=live-cf.edge.863636.xyz
 //     -> 额外克隆 ...-CF-LIVE，只把 server 改为直播/实时优选域名
 //
 // 两个节点的 tls.server_name / WS Host / UUID / path / password 完全一致，
@@ -14,12 +14,13 @@
 //
 // 推荐参数：
 //   client=windows
-//   cfDialDomain=best-cf.edge.example.com
-//   cfLiveDomain=live-cf.edge.example.com
-//   cfDnsServer=119.29.29.29
+//   cfDialDomain=best-cf.edge.863636.xyz
+//   cfLiveDomain=live-cf.edge.863636.xyz
+//   cfDnsServer=223.5.5.5
 //
 // cfDnsServer 会创建/复用 dns-cf-smart，并让 CF 节点通过指定递归 DNS
-// 解析 best-cf/live-cf。DNSPod 可使用 119.29.29.29；华为云请按目标网络选择 resolver。
+// 解析业务 CNAME 域名。当前 AxisNow Managed 域名实测使用 223.5.5.5
+// 可得到对应线路结果；不要将 *.alidns-3.com 写入节点的 server/SNI/WS Host。
 //
 // 仍兼容 v5.3 的 cfCuDomain / cfFastDomain / cfBestDomain / cfMode。
 // Windows 默认 IPv4-only。
@@ -142,7 +143,7 @@ const validProxies = expandCloudflareDialDomains(config, baseValidProxies, {
   mode: String(cfMode || '').trim().toLowerCase(),
   keepOriginal: toBoolean(cfKeepOriginal, false),
   match: String(cfMatch || 'ℹ️^.*-CF$').trim(),
-  dnsServer: String(cfDnsServer || '').trim()
+  dnsServer: String(cfDnsServer || '223.5.5.5').trim()
 })
 
 const nodeNames = validProxies.map(proxy => proxy.tag)
