@@ -15,7 +15,7 @@
       {
         "tag": "dns-cf-smart",
         "type": "udp",
-        "server": "119.29.29.29",
+        "server": "223.5.5.5",
         "server_port": 53
       },
       {
