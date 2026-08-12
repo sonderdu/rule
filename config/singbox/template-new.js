@@ -131,6 +131,12 @@ if (baseValidProxies.length === 0) {
   throw new Error('过滤说明节点后没有有效节点')
 }
 
+// Oracle 直连节点可以保留协议描述中的 -CF，但绝不能被普通/LIVE
+// Cloudflare 优选展开逻辑克隆。
+function isOracleDirect(nodeName) {
+  return /^ORACLE-P3-JP-TOKYO-DIRECT(?:-|$)/i.test(String(nodeName || ''))
+}
+
 // Cloudflare 优选入口展开。
 // 新版默认：一个原始 -CF 节点克隆为 -CF-CU / -CF-FAST。
 // 若未传新参数但仍传 cfDialDomain，则自动兼容 v4 单入口行为。
@@ -162,6 +168,7 @@ const isBackupAirport = nodeName =>
   /^AIR-P2-BACKUP-/i.test(nodeName)
 
 const isCloudflareOptimized = nodeName =>
+  !isOracleDirect(nodeName) &&
   /-CF(?:-(?:CU|FAST|BEST))?$/i.test(nodeName)
 
 const isCloudflareLive = nodeName =>
@@ -176,9 +183,6 @@ const isOracleLive = nodeName =>
 // 普通 CF 和 LIVE CF 分开管理。
 ensureOracleOptimizedGroup(config, nodeNames.filter(isOracleOptimized))
 ensureOracleLiveGroup(config, nodeNames.filter(isOracleLive))
-
-const isOracleDirect = nodeName =>
-  /^ORACLE-P3-JP-TOKYO-DIRECT(?:-|$)/i.test(nodeName)
 
 const isOrdinary = nodeName =>
   /^AIR-P3-XL-/i.test(nodeName)
@@ -672,7 +676,7 @@ function expandCloudflareDialDomains(config, proxies, options) {
     let matched = 0
 
     for (const proxy of proxies) {
-      if (!regex.test(proxy.tag) || !proxy.server) {
+      if (!regex.test(proxy.tag) || !proxy.server || isOracleDirect(proxy.tag)) {
         output.push(proxy)
         continue
       }
@@ -724,7 +728,9 @@ function expandCloudflareDialDomains(config, proxies, options) {
     let count = 0
 
     const legacy = proxies.map(proxy => {
-      if (!regex.test(proxy.tag) || !proxy.server) return proxy
+      if (!regex.test(proxy.tag) || !proxy.server || isOracleDirect(proxy.tag)) {
+        return proxy
+      }
 
       const cloned = deepClone(proxy)
       const oldServer = cloned.server
@@ -797,7 +803,7 @@ function expandCloudflareDialDomains(config, proxies, options) {
 
   for (const proxy of proxies) {
     // 只处理原始 -CF 节点，默认正则不会重新匹配 -CF-CU / -CF-FAST。
-    if (!regex.test(proxy.tag) || !proxy.server) {
+    if (!regex.test(proxy.tag) || !proxy.server || isOracleDirect(proxy.tag)) {
       output.push(proxy)
       continue
     }
