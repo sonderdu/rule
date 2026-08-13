@@ -6,7 +6,7 @@
 //   substoreUrl   - ClashMeta URL of the node collection/provider
 //
 // Optional:
-//   cfDnsServer   - resolver for both dial domains (default: 119.29.29.29)
+//   cfDnsServer   - resolver for both CNAME dial domains (default: 223.5.5.5)
 
 function renderOpenClashConfig(content, args = {}) {
   if (typeof content !== 'string' || !content.trim()) {
@@ -17,7 +17,7 @@ function renderOpenClashConfig(content, args = {}) {
     __CF_DIAL_DOMAIN__: requireHostname(args, 'cfDialDomain'),
     __CF_LIVE_DOMAIN__: requireHostname(args, 'cfLiveDomain'),
     __SUBSTORE_PROVIDER_URL__: requireHttpUrl(args, 'substoreUrl'),
-    __CF_DNS_SERVER__: String(args.cfDnsServer || '119.29.29.29').trim()
+    __CF_DNS_SERVER__: String(args.cfDnsServer || '223.5.5.5').trim()
   }
 
   if (values.__CF_DIAL_DOMAIN__ === values.__CF_LIVE_DOMAIN__) {
