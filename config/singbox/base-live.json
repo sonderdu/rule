@@ -112,7 +112,8 @@
           "ggpht.com",
           "ai.google.dev"
         ],
-        "server": "dns-gemini"
+        "server": "dns-gemini",
+        "strategy": "ipv4_only"
       },
       {
         "rule_set": [
@@ -515,12 +516,9 @@
           "6666456.xyz",
           "st.stentvessel.xyz",
           "hongxingyun.xyz",
-          "hongxingyun.homes",
-          "vmiss.com",
-          "challenges.cloudflare.com",
-          "nodeseek.com"
+          "hongxingyun.homes"
         ],
-        "outbound": "⭐ 自建主力"
+        "outbound": "🇸🇬 新加坡优选"
       },
       {
         "domain_suffix": [
