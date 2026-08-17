@@ -31,12 +31,6 @@
         "server": "8.8.8.8",
         "server_port": 443,
         "detour": "🚀 默认代理"
-      },
-      {
-        "tag": "dns-fakeip",
-        "type": "fakeip",
-        "inet4_range": "198.18.0.0/16",
-        "inet6_range": "fc00::/18"
       }
     ],
     "rules": [
@@ -89,14 +83,6 @@
           "geosite-apple"
         ],
         "server": "dns-cn"
-      },
-      {
-        "query_type": [
-          "A",
-          "AAAA"
-        ],
-        "server": "dns-fakeip",
-        "rewrite_ttl": 300
       }
     ],
     "final": "dns-proxy",
@@ -164,21 +150,6 @@
         "🤝 合租高速",
         "🚄 机场5X",
         "🛟 赠送备用",
-        "🇯🇵 日本优选",
-        "🇸🇬 新加坡优选",
-        "🇺🇸 美国优选",
-        "🐸 手动选择"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "⭐ 自建主力"
-    },
-    {
-      "tag": "🧠 Gemini稳定",
-      "type": "selector",
-      "outbounds": [
-        "⭐ 自建主力",
-        "🤝 合租高速",
-        "🪶 星链普通",
         "🇯🇵 日本优选",
         "🇸🇬 新加坡优选",
         "🇺🇸 美国优选",
@@ -441,7 +412,6 @@
       "type": "selector",
       "outbounds": [
         "🚀 默认代理",
-        "🧠 Gemini稳定",
         "🧠 AI",
         "📹 YouTube",
         "🍀 Google",
@@ -559,7 +529,7 @@
       },
       {
         "rule_set": "geosite-google-gemini",
-        "outbound": "🧠 Gemini稳定"
+        "outbound": "🧠 AI"
       },
       {
         "rule_set": "geosite-ai",
@@ -593,10 +563,6 @@
         "outbound": "🍏 Apple"
       },
       {
-        "rule_set": "geosite-!cn",
-        "outbound": "🚀 默认代理"
-      },
-      {
         "rule_set": [
           "geosite-cn",
           "geoip-cn"
@@ -606,18 +572,18 @@
     ],
     "rule_set": [
       {
-        "tag": "geosite-ai",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
-        "download_detour": "🚀 默认代理",
-        "update_interval": "1d"
-      },
-      {
         "tag": "geosite-google-gemini",
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-ai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
         "download_detour": "🚀 默认代理",
         "update_interval": "1d"
       },
@@ -650,14 +616,6 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs",
-        "download_detour": "🚀 默认代理",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-!cn",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "🚀 默认代理",
         "update_interval": "1d"
       },
@@ -711,12 +669,11 @@
   "experimental": {
     "cache_file": {
       "enabled": true,
-      "path": "cache.db",
-      "store_fakeip": true
+      "path": "/etc/sing-box/cache.db"
     },
     "clash_api": {
-      "external_controller": "127.0.0.1:9095",
-      "external_ui": "ui",
+      "external_controller": "0.0.0.0:9095",
+      "external_ui": "/etc/sing-box/ui",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
       "external_ui_download_detour": "🚀 默认代理",
       "secret": "",
