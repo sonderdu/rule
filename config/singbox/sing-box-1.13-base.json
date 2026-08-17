@@ -15,7 +15,7 @@
       {
         "tag": "dns-cf-smart",
         "type": "udp",
-        "server": "223.5.5.5",
+        "server": "119.29.29.29",
         "server_port": 53
       },
       {
@@ -84,15 +84,7 @@
           "login.live.com",
           "account.live.com",
           "mysignins.microsoft.com",
-          "enterpriseregistration.windows.net",
-          "msftconnecttest.com",
-          "msftncsi.com"
-        ],
-        "server": "dns-cn"
-      },
-      {
-        "domain": [
-          "zhongyaogjiedaizhongxin-fanqienovel.com"
+          "enterpriseregistration.windows.net"
         ],
         "server": "dns-cn"
       },
@@ -112,17 +104,6 @@
         "server": "dns-proxy"
       },
       {
-        "domain": [
-          "youtubei.googleapis.com",
-          "youtube.googleapis.com",
-          "youtubeembeddedplayer.googleapis.com"
-        ],
-        "domain_suffix": [
-          "ytimg.com"
-        ],
-        "server": "dns-proxy"
-      },
-      {
         "domain_suffix": [
           "google.com",
           "googleapis.com",
@@ -131,8 +112,7 @@
           "ggpht.com",
           "ai.google.dev"
         ],
-        "server": "dns-gemini",
-        "strategy": "ipv4_only"
+        "server": "dns-gemini"
       },
       {
         "rule_set": [
@@ -154,6 +134,7 @@
     "strategy": "prefer_ipv4",
     "reverse_mapping": true
   },
+
   "inbounds": [
     {
       "tag": "tun-in",
@@ -167,8 +148,14 @@
       "stack": "mixed",
       "udp_timeout": "5m",
       "auto_route": true,
-      "auto_redirect": false,
-      "strict_route": true
+      "auto_redirect": true,
+      "strict_route": false
+    },
+    {
+      "tag": "dns-in",
+      "type": "direct",
+      "listen": "127.0.0.1",
+      "listen_port": 7874
     },
     {
       "tag": "mixed-in",
@@ -177,6 +164,7 @@
       "listen_port": 7890
     }
   ],
+
   "outbounds": [
     {
       "tag": "🚀 默认代理",
@@ -261,25 +249,6 @@
       ],
       "interrupt_exist_connections": true,
       "default": "🎯 全球直连"
-    },
-    {
-      "tag": "📺 YouTube",
-      "type": "selector",
-      "outbounds": [
-        "🚀 默认代理",
-        "⭐ 自建主力",
-        "🤝 合租高速",
-        "🚄 机场5X",
-        "🛟 赠送备用",
-        "🎬 Poly线路",
-        "☁️ Oracle优化",
-        "📺 Oracle直播",
-        "☁️ Oracle直连",
-        "🪶 星链普通",
-        "🐸 手动选择"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "🚀 默认代理"
     },
     {
       "tag": "⭐ 自建主力",
@@ -429,7 +398,6 @@
         "🔐 Microsoft认证",
         "📲 Telegram",
         "🍏 Apple",
-        "📺 YouTube",
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
@@ -452,8 +420,15 @@
       "type": "direct"
     }
   ],
+
   "route": {
     "rules": [
+      {
+        "inbound": [
+          "dns-in"
+        ],
+        "action": "hijack-dns"
+      },
       {
         "action": "sniff",
         "sniffer": [
@@ -487,42 +462,6 @@
       {
         "clash_mode": "global",
         "outbound": "GLOBAL"
-      },
-      {
-        "domain_suffix": [
-          "youtube.com",
-          "youtu.be",
-          "youtube-nocookie.com",
-          "googlevideo.com",
-          "ytimg.com"
-        ],
-        "outbound": "📺 YouTube"
-      },
-      {
-        "domain": [
-          "youtubei.googleapis.com",
-          "youtube.googleapis.com",
-          "youtubeembeddedplayer.googleapis.com"
-        ],
-        "outbound": "📺 YouTube"
-      },
-      {
-        "domain": [
-          "yt3.googleusercontent.com"
-        ],
-        "outbound": "📺 YouTube"
-      },
-      {
-        "rule_set": "geosite-youtube",
-        "outbound": "📺 YouTube"
-      },
-      {
-        "domain": [
-          "mtalk.google.com",
-          "fcm.googleapis.com",
-          "firebaseinstallations.googleapis.com"
-        ],
-        "outbound": "🚀 默认代理"
       },
       {
         "domain_suffix": [
@@ -591,11 +530,9 @@
           "6666456.xyz",
           "st.stentvessel.xyz",
           "hongxingyun.xyz",
-          "hongxingyun.homes",
-          "vmiss.com",
-          "nodeseek.com"
+          "hongxingyun.homes"
         ],
-        "outbound": "⭐ 自建主力"
+        "outbound": "🇸🇬 新加坡优选"
       },
       {
         "domain_suffix": [
@@ -605,31 +542,8 @@
         "outbound": "🎬 Poly线路"
       },
       {
-        "domain_suffix": [
-          "openai.com",
-          "chatgpt.com",
-          "oaiusercontent.com"
-        ],
-        "outbound": "🧠 AI"
-      },
-      {
-        "domain": [
-          "challenges.cloudflare.com",
-          "chatgpt.livekit.cloud"
-        ],
-        "outbound": "🧠 AI"
-      },
-      {
         "rule_set": "geosite-ai",
         "outbound": "🧠 AI"
-      },
-      {
-        "rule_set": "geosite-google",
-        "outbound": "🚀 默认代理"
-      },
-      {
-        "rule_set": "geoip-google",
-        "outbound": "🧠 Gemini稳定"
       },
       {
         "rule_set": [
@@ -643,81 +557,6 @@
         "outbound": "🍏 Apple"
       },
       {
-        "domain_suffix": [
-          "oracle.com",
-          "oraclecloud.com",
-          "gracelore.cc",
-          "h5.xiaoecloud.com",
-          "xet-pc.citv.cn",
-          "feishu.cn",
-          "feishucdn.com",
-          "qq.com",
-          "tencent.com"
-        ],
-        "outbound": "🎯 全球直连"
-      },
-      {
-        "domain": [
-          "jump.eaton-samc.com",
-          "tianya.net",
-          "coding.dashscope.aliyuncs.com",
-          "bailian.console.aliyun.com",
-          "origin.example.com",
-          "platform.xiaomimimo.com",
-          "test.ustc.edu.cn"
-        ],
-        "outbound": "🎯 全球直连"
-      },
-      {
-        "domain_keyword": [
-          "xiaomi"
-        ],
-        "outbound": "🎯 全球直连"
-      },
-      {
-        "ip_cidr": [
-          "124.89.1.129/32",
-          "221.11.1.68/32",
-          "3.23.132.221/32"
-        ],
-        "outbound": "🎯 全球直连"
-      },
-      {
-        "domain_keyword": [
-          "adspower.net",
-          "codebuddy.ai"
-        ],
-        "outbound": "🚀 默认代理"
-      },
-      {
-        "domain": [
-          "raw.githubusercontent.com",
-          "monitor.example.com",
-          "ipify.org"
-        ],
-        "outbound": "🚀 默认代理"
-      },
-      {
-        "domain": [
-          "v1.uhdnow.com",
-          "v1-vod1.uhdnow.com",
-          "v1-vod2.uhdnow.com"
-        ],
-        "outbound": "🐸 手动选择"
-      },
-      {
-        "domain_suffix": [
-          "qichiyu.com"
-        ],
-        "outbound": "🚀 默认代理"
-      },
-      {
-        "ip_cidr": [
-          "3.23.132.228/32"
-        ],
-        "outbound": "🚀 默认代理"
-      },
-      {
         "rule_set": [
           "geosite-cn",
           "geoip-cn"
@@ -725,6 +564,7 @@
         "outbound": "🎯 全球直连"
       }
     ],
+
     "rule_set": [
       {
         "tag": "geosite-ai",
@@ -773,38 +613,16 @@
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs",
         "download_detour": "🚀 默认代理",
         "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-youtube",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/youtube.srs",
-        "download_detour": "🚀 默认代理",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geosite-google",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google.srs",
-        "download_detour": "🚀 默认代理",
-        "update_interval": "1d"
-      },
-      {
-        "tag": "geoip-google",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/google.srs",
-        "download_detour": "🚀 默认代理",
-        "update_interval": "1d"
       }
     ],
+
     "final": "🐠 漏网之鱼",
     "auto_detect_interface": true,
     "default_domain_resolver": {
       "server": "dns-cn"
     }
   },
+
   "experimental": {
     "cache_file": {
       "enabled": true,
