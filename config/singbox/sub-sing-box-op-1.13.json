@@ -95,6 +95,16 @@
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
+        "🛟 赠送备用",
+        "🇭🇰 香港优选",
+        "🇹🇼 台湾优选",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "📺 Oracle直播",
+        "☁️ Oracle直连",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -106,6 +116,10 @@
       "outbounds": [
         "⭐ 自建主力",
         "🤝 合租高速",
+        "🚄 机场5X",
+        "🇺🇸 美国优选",
+        "🇸🇬 新加坡优选",
+        "🛟 赠送备用",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -117,6 +131,15 @@
       "outbounds": [
         "⭐ 自建主力",
         "🤝 合租高速",
+        "🚄 机场5X",
+        "🛟 赠送备用",
+        "🇭🇰 香港优选",
+        "🇹🇼 台湾优选",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -128,6 +151,15 @@
       "outbounds": [
         "⭐ 自建主力",
         "🤝 合租高速",
+        "🚄 机场5X",
+        "🛟 赠送备用",
+        "🇭🇰 香港优选",
+        "🇹🇼 台湾优选",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -139,6 +171,15 @@
       "outbounds": [
         "⭐ 自建主力",
         "🤝 合租高速",
+        "🚄 机场5X",
+        "🛟 赠送备用",
+        "🇭🇰 香港优选",
+        "🇹🇼 台湾优选",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -150,6 +191,11 @@
       "outbounds": [
         "⭐ 自建主力",
         "🤝 合租高速",
+        "🚄 机场5X",
+        "🛟 赠送备用",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -170,6 +216,10 @@
       "type": "selector",
       "outbounds": [
         "⭐ 自建主力",
+        "🤝 合租高速",
+        "🇸🇬 新加坡优选",
+        "🇯🇵 日本优选",
+        "🛟 赠送备用",
         "🚀 默认代理",
         "🐸 手动选择"
       ],
@@ -209,6 +259,112 @@
       "interrupt_exist_connections": false
     },
     {
+      "tag": "🛟 赠送备用",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 120,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🎬 Poly线路",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "☁️ Oracle优化",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "📺 Oracle直播",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "☁️ Oracle直连",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🪶 星链普通",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🇭🇰 香港优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇹🇼 台湾优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇯🇵 日本优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇸🇬 新加坡优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 100,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🇺🇸 美国优选",
+      "type": "urltest",
+      "outbounds": [],
+      "url": "https://www.gstatic.com/generate_204",
+      "interval": "5m",
+      "tolerance": 120,
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag": "🧪 测试节点",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🐸 手动选择",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
       "tag": "🐠 漏网之鱼",
       "type": "selector",
       "outbounds": [
@@ -234,7 +390,15 @@
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
+        "🛟 赠送备用",
+        "🎬 Poly线路",
+        "☁️ Oracle优化",
+        "📺 Oracle直播",
+        "☁️ Oracle直连",
+        "🪶 星链普通",
         "🐠 漏网之鱼",
+        "🐸 手动选择",
+        "🧪 测试节点",
         "🎯 全球直连"
       ],
       "interrupt_exist_connections": true,
@@ -264,6 +428,87 @@
       {
         "clash_mode": "global",
         "outbound": "GLOBAL"
+      },
+      {
+        "domain_suffix": [
+          "play.googleapis.com",
+          "android.clients.google.com",
+          "android.googleapis.com",
+          "gvt1.com",
+          "gvt2.com",
+          "gvt3.com",
+          "googlevideo.com",
+          "services.googleapis.cn",
+          "googleapis.cn"
+        ],
+        "outbound": "🚀 默认代理"
+      },
+      {
+        "domain_suffix": [
+          "google.com",
+          "googleapis.com",
+          "googleusercontent.com",
+          "gstatic.com",
+          "ggpht.com",
+          "ai.google.dev"
+        ],
+        "outbound": "🧠 AI"
+      },
+      {
+        "domain_suffix": [
+          "mobileappcommunicator.auth.microsoft.com",
+          "microsoftonline.com",
+          "msauth.net",
+          "msftauth.net",
+          "msauthimages.net",
+          "msftauthimages.net",
+          "login.microsoft.com",
+          "login.live.com",
+          "account.live.com",
+          "mysignins.microsoft.com",
+          "enterpriseregistration.windows.net"
+        ],
+        "outbound": "🔐 Microsoft认证"
+      },
+      {
+        "port": [
+          22
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "domain_suffix": [
+          "tmate.io",
+          "teams.microsoft.com",
+          "mmszxc.xin"
+        ],
+        "domain_keyword": [
+          "mmszxc"
+        ],
+        "ip_cidr": [
+          "106.55.228.246/32"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "domain_suffix": [
+          "hongxingyunmovie.vip",
+          "6666456.xyz",
+          "st.stentvessel.xyz",
+          "hongxingyun.xyz",
+          "hongxingyun.homes",
+          "vmiss.com",
+          "challenges.cloudflare.com",
+          "nodeseek.com"
+        ],
+        "outbound": "⭐ 自建主力"
+      },
+      {
+        "domain_suffix": [
+          "poly.emby.moe",
+          "xxlb.net"
+        ],
+        "outbound": "🎬 Poly线路"
       },
       {
         "rule_set": "geosite-youtube",
