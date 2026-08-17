@@ -15,7 +15,7 @@
       {
         "tag": "dns-cf-smart",
         "type": "udp",
-        "server": "119.29.29.29",
+        "server": "223.5.5.5",
         "server_port": 53
       },
       {
@@ -112,7 +112,8 @@
           "ggpht.com",
           "ai.google.dev"
         ],
-        "server": "dns-gemini"
+        "server": "dns-gemini",
+        "strategy": "ipv4_only"
       },
       {
         "rule_set": [
@@ -134,7 +135,6 @@
     "strategy": "prefer_ipv4",
     "reverse_mapping": true
   },
-
   "inbounds": [
     {
       "tag": "tun-in",
@@ -164,7 +164,6 @@
       "listen_port": 7890
     }
   ],
-
   "outbounds": [
     {
       "tag": "🚀 默认代理",
@@ -420,7 +419,6 @@
       "type": "direct"
     }
   ],
-
   "route": {
     "rules": [
       {
@@ -530,9 +528,12 @@
           "6666456.xyz",
           "st.stentvessel.xyz",
           "hongxingyun.xyz",
-          "hongxingyun.homes"
+          "hongxingyun.homes",
+          "vmiss.com",
+          "challenges.cloudflare.com",
+          "nodeseek.com"
         ],
-        "outbound": "🇸🇬 新加坡优选"
+        "outbound": "⭐ 自建主力"
       },
       {
         "domain_suffix": [
@@ -564,7 +565,6 @@
         "outbound": "🎯 全球直连"
       }
     ],
-
     "rule_set": [
       {
         "tag": "geosite-ai",
@@ -615,14 +615,12 @@
         "update_interval": "1d"
       }
     ],
-
     "final": "🐠 漏网之鱼",
     "auto_detect_interface": true,
     "default_domain_resolver": {
       "server": "dns-cn"
     }
   },
-
   "experimental": {
     "cache_file": {
       "enabled": true,
