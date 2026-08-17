@@ -30,48 +30,7 @@
         "type": "https",
         "server": "8.8.8.8",
         "server_port": 443,
-        "detour": "🚀 默认代理",
-        "domain_resolver": "dns-local-bootstrap"
-      },
-      {
-        "tag": "dns-ai",
-        "type": "https",
-        "server": "8.8.8.8",
-        "server_port": 443,
-        "detour": "🧠 AI",
-        "domain_resolver": "dns-local-bootstrap"
-      },
-      {
-        "tag": "dns-youtube",
-        "type": "https",
-        "server": "8.8.8.8",
-        "server_port": 443,
-        "detour": "📹 YouTube",
-        "domain_resolver": "dns-local-bootstrap"
-      },
-      {
-        "tag": "dns-google",
-        "type": "https",
-        "server": "8.8.8.8",
-        "server_port": 443,
-        "detour": "🍀 Google",
-        "domain_resolver": "dns-local-bootstrap"
-      },
-      {
-        "tag": "dns-github",
-        "type": "https",
-        "server": "8.8.8.8",
-        "server_port": 443,
-        "detour": "👨‍💻 Github",
-        "domain_resolver": "dns-local-bootstrap"
-      },
-      {
-        "tag": "dns-tiktok",
-        "type": "https",
-        "server": "8.8.8.8",
-        "server_port": 443,
-        "detour": "🎵 TikTok",
-        "domain_resolver": "dns-local-bootstrap"
+        "detour": "🚀 默认代理"
       },
       {
         "tag": "dns-fakeip",
@@ -122,27 +81,7 @@
           "googleapis.cn",
           "xn--ngstr-lra8j.com"
         ],
-        "server": "dns-google"
-      },
-      {
-        "rule_set": "geosite-youtube",
-        "server": "dns-youtube"
-      },
-      {
-        "rule_set": "geosite-google",
-        "server": "dns-google"
-      },
-      {
-        "rule_set": "geosite-github",
-        "server": "dns-github"
-      },
-      {
-        "rule_set": "geosite-tiktok",
-        "server": "dns-tiktok"
-      },
-      {
-        "rule_set": "geosite-ai",
-        "server": "dns-ai"
+        "server": "dns-proxy"
       },
       {
         "rule_set": [
@@ -224,9 +163,10 @@
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
-        "🇺🇸 美国优选",
-        "🇸🇬 新加坡优选",
         "🛟 赠送备用",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -239,6 +179,9 @@
         "⭐ 自建主力",
         "🤝 合租高速",
         "🪶 星链普通",
+        "🇯🇵 日本优选",
+        "🇸🇬 新加坡优选",
+        "🇺🇸 美国优选",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -248,7 +191,6 @@
       "tag": "📹 YouTube",
       "type": "selector",
       "outbounds": [
-        "🚀 默认代理",
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
@@ -258,17 +200,17 @@
         "🇯🇵 日本优选",
         "🇸🇬 新加坡优选",
         "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
-      "default": "🚀 默认代理"
+      "default": "⭐ 自建主力"
     },
     {
       "tag": "🍀 Google",
       "type": "selector",
       "outbounds": [
-        "🧠 Gemini稳定",
-        "🚀 默认代理",
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
@@ -278,16 +220,17 @@
         "🇯🇵 日本优选",
         "🇸🇬 新加坡优选",
         "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
-      "default": "🧠 Gemini稳定"
+      "default": "⭐ 自建主力"
     },
     {
       "tag": "👨‍💻 Github",
       "type": "selector",
       "outbounds": [
-        "🚀 默认代理",
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
@@ -297,16 +240,17 @@
         "🇯🇵 日本优选",
         "🇸🇬 新加坡优选",
         "🇺🇸 美国优选",
+        "☁️ Oracle优化",
+        "🪶 星链普通",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
-      "default": "🚀 默认代理"
+      "default": "⭐ 自建主力"
     },
     {
       "tag": "🎵 TikTok",
       "type": "selector",
       "outbounds": [
-        "🚀 默认代理",
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
@@ -317,7 +261,7 @@
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
-      "default": "🚀 默认代理"
+      "default": "⭐ 自建主力"
     },
     {
       "tag": "🔐 Microsoft认证",
@@ -497,8 +441,8 @@
       "type": "selector",
       "outbounds": [
         "🚀 默认代理",
-        "🧠 AI",
         "🧠 Gemini稳定",
+        "🧠 AI",
         "📹 YouTube",
         "🍀 Google",
         "👨‍💻 Github",
@@ -614,12 +558,12 @@
         "outbound": "🎬 Poly线路"
       },
       {
-        "domain_suffix": [
-          "services.googleapis.cn",
-          "googleapis.cn",
-          "xn--ngstr-lra8j.com"
-        ],
-        "outbound": "🍀 Google"
+        "rule_set": "geosite-google-gemini",
+        "outbound": "🧠 Gemini稳定"
+      },
+      {
+        "rule_set": "geosite-ai",
+        "outbound": "🧠 AI"
       },
       {
         "rule_set": "geosite-youtube",
@@ -638,10 +582,6 @@
         "outbound": "🎵 TikTok"
       },
       {
-        "rule_set": "geosite-ai",
-        "outbound": "🧠 AI"
-      },
-      {
         "rule_set": [
           "geosite-telegram",
           "geoip-telegram"
@@ -651,6 +591,10 @@
       {
         "rule_set": "geosite-apple",
         "outbound": "🍏 Apple"
+      },
+      {
+        "rule_set": "geosite-!cn",
+        "outbound": "🚀 默认代理"
       },
       {
         "rule_set": [
@@ -666,6 +610,14 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/category-ai-!cn.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-google-gemini",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.srs",
         "download_detour": "🚀 默认代理",
         "update_interval": "1d"
       },
@@ -698,6 +650,14 @@
         "type": "remote",
         "format": "binary",
         "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/tiktok.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "🚀 默认代理",
         "update_interval": "1d"
       },
