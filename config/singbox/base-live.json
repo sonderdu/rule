@@ -680,6 +680,17 @@
         "outbound": "🐸 手动选择"
       },
       {
+        "domain": [
+          "www.uhdnow.com",
+          "smart.uhdnow.com",
+          "speed.uhdnow.com"
+        ],
+        "domain_suffix": [
+          "uhdnow.online"
+        ],
+        "outbound": "🎯 全球直连"
+      },
+      {
         "domain_suffix": [
           "qichiyu.com"
         ],
