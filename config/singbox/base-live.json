@@ -262,7 +262,6 @@
         "⭐ 自建主力",
         "🤝 合租高速",
         "🚄 机场5X",
-        "🛟 赠送备用",
         "🎬 Poly线路",
         "☁️ Oracle直连",
         "🪶 星链普通",
@@ -467,7 +466,7 @@
       "store_fakeip": true
     },
     "clash_api": {
-      "external_controller": "127.0.0.1:9095",
+      "external_controller": "0.0.0.0:9095",
       "external_ui": "ui",
       "external_ui_download_url": "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip",
       "external_ui_download_detour": "🚀 默认代理",
