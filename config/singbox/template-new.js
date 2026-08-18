@@ -413,17 +413,7 @@ if (platform.includes('openwrt')) {
 
   setAutoRedirect(config, true)
   // strict_route 保持 base 配置的 false，避免抢占默认路由，保证 natmap 可用。
-} else if (platform.includes('android')) {
-  if (!toBoolean(keepExperimental, false)) {
-    delete config.experimental
-  } else {
-    normalizeExperimental(config)
-  }
-
-  setAutoRedirect(config, false)
-} else if (platform.includes('windows')) {
-  normalizeExperimental(config)
-  setAutoRedirect(config, false)
+  // dns-in + hijack-dns 保留：auto_redirect 需要 nftables 把 DNS 重定向到该端口。
 } else if (platform.includes('linux')) {
   if (config.experimental?.cache_file) {
     config.experimental.cache_file.path = '/etc/sing-box/cache.db'
@@ -435,9 +425,24 @@ if (platform.includes('openwrt')) {
   }
 
   setAutoRedirect(config, true)
+  // dns-in + hijack-dns 保留：auto_redirect 同样需要。
+} else if (platform.includes('android')) {
+  if (!toBoolean(keepExperimental, false)) {
+    delete config.experimental
+  } else {
+    normalizeExperimental(config)
+  }
+
+  setAutoRedirect(config, false)
+  removeDnsIn(config)
+} else if (platform.includes('windows')) {
+  normalizeExperimental(config)
+  setAutoRedirect(config, false)
+  removeDnsIn(config)
 } else {
   normalizeExperimental(config)
   setAutoRedirect(config, false)
+  removeDnsIn(config)
 }
 
 const resolvedIPv6Mode = resolveIPv6Mode({
@@ -898,6 +903,23 @@ function setAutoRedirect(config, enabled) {
       }
     }
   }
+}
+
+function removeDnsIn(config) {
+  // Windows/Android 不需要 dns-in direct 入站：
+  //   - Windows TUN 用 WinDivert 在内核层劫持 DNS
+  //   - Android VPN 的 protect() 自动接管 DNS
+  config.inbounds = (config.inbounds || []).filter(
+    item => !(item?.tag === 'dns-in' && item?.type === 'direct')
+  )
+
+  config.route.rules = (config.route.rules || []).filter(
+    rule => !(
+      rule?.action === 'hijack-dns' &&
+      Array.isArray(rule.inbound) &&
+      rule.inbound.includes('dns-in')
+    )
+  )
 }
 
 function regionMatches(nodeName, region) {
