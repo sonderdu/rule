@@ -696,6 +696,14 @@
         "outbound": "🎯 全球直连"
       },
       {
+        "rule_set": "geosite-httpdns-cn",
+        "outbound": "🎯 全球直连"
+      },
+      {
+        "rule_set": "geosite-ai-cn",
+        "outbound": "🎯 全球直连"
+      },
+      {
         "rule_set": "geosite-ntp-cn",
         "outbound": "🎯 全球直连"
       },
@@ -734,8 +742,17 @@
           "geosite-netflix",
           "geosite-disney",
           "geosite-primevideo",
-          "geosite-media"
+          "geosite-media",
+          "geoip-netflix"
         ],
+        "outbound": "🚀 默认代理"
+      },
+      {
+        "rule_set": "geosite-tiktok",
+        "outbound": "🚀 默认代理"
+      },
+      {
+        "rule_set": "geosite-gfw",
         "outbound": "🚀 默认代理"
       },
       {
@@ -964,6 +981,46 @@
         "type": "remote",
         "format": "binary",
         "url": "https://cnb.cool/galendu/meta-rules-dat/-/git/raw/sing/geo/geosite/github.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-gfw",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cnb.cool/galendu/meta-rules-dat/-/git/raw/sing/geo/geosite/gfw.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-httpdns-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cnb.cool/galendu/meta-rules-dat/-/git/raw/sing/geo/geosite/category-httpdns-cn.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-ai-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cnb.cool/galendu/meta-rules-dat/-/git/raw/sing/geo/geosite/category-ai-cn.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geoip-netflix",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cnb.cool/galendu/meta-rules-dat/-/git/raw/sing/geo/geoip/netflix.srs",
+        "download_detour": "🚀 默认代理",
+        "update_interval": "1d"
+      },
+      {
+        "tag": "geosite-tiktok",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cnb.cool/galendu/meta-rules-dat/-/git/raw/sing/geo/geosite/tiktok@!cn.srs",
         "download_detour": "🚀 默认代理",
         "update_interval": "1d"
       }
