@@ -891,7 +891,11 @@ function normalizeExperimental(config) {
 function setAutoRedirect(config, enabled) {
   for (const inbound of config.inbounds || []) {
     if (inbound?.type === 'tun') {
-      inbound.auto_redirect = enabled
+      if (enabled) {
+        inbound.auto_redirect = true
+      } else {
+        delete inbound.auto_redirect
+      }
     }
   }
 }
