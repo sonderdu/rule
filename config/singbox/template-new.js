@@ -1,30 +1,27 @@
 // Sub-Store + sing-box 1.13.x 配置生成脚本 v5.4-live
 //
-// 推荐的单入口 + LIVE 双 Profile：
-//   原始节点：ORACLE-P2-...-CF
+// 节点策略：
+//   - ORACLE-P3-...-DIRECT   -> ☁️ Oracle直连 组（保留原始直连节点）
+//   - ORACLE-P2-...-CF       -> Oracle 节点不再参与 CF 域名优选，
+//                               保留原始 server，仅归入 🐸 手动选择
+//   - SELF-P1 / SHARE-P1 / AIR-P* -> 自建 / 合租 / 机场等分组
+//   - 其余通用 -CF 节点       -> 按 cfDialDomain / cfLiveDomain 等做 CF 优选
 //
-//   cfDialDomain=best-cf.edge.863636.xyz
-//     -> 原始 ...-CF 保持 tag 不变，只把 server 改为普通优选域名
-//
-//   cfLiveDomain=live-cf.edge.863636.xyz
-//     -> 额外克隆 ...-CF-LIVE，只把 server 改为直播/实时优选域名
-//
-// 两个节点的 tls.server_name / WS Host / UUID / path / password 完全一致，
-// 最终代理出口仍然是同一 Oracle origin；变化的只是 Cloudflare 入口 IP。
+// CF 优选（仅对非 Oracle 节点生效）：
+//   cfDialDomain=best-cf.edge.863636.xyz  -> 原始 -CF 替换 server 为普通优选
+//   cfLiveDomain=live-cf.edge.863636.xyz  -> 额外克隆 -CF-LIVE 直播优选入口
+//   cfDnsServer=223.5.5.5                 -> 创建/复用 dns-cf-smart，用指定递归
+//                                             DNS 解析业务 CNAME 域名
+//   仍兼容 v5.3 的 cfCuDomain / cfFastDomain / cfBestDomain / cfMode。
 //
 // 推荐参数：
-//   client=windows
-//   cfDialDomain=best-cf.edge.863636.xyz
-//   cfLiveDomain=live-cf.edge.863636.xyz
-//   cfDnsServer=223.5.5.5
+//   client=windows|linux|android|openwrt
 //
-// cfDnsServer 会创建/复用 dns-cf-smart，并让 CF 节点通过指定递归 DNS
-// 解析业务 CNAME 域名。可填写 IP，或填写双栈 DNS 主机名（如 dns.alidns.com）。
-// 当前 AxisNow Managed 域名实测使用 223.5.5.5
-// 可得到对应线路结果；不要将 *.alidns-3.com 写入节点的 server/SNI/WS Host。
-//
-// 仍兼容 v5.3 的 cfCuDomain / cfFastDomain / cfBestDomain / cfMode。
-// Windows 默认 IPv4-only。
+// 四环境默认行为：
+//   android  -> IPv6 优先，auto_redirect=false
+//   openwrt  -> IPv6 优先，auto_redirect=true，strict_route=false（兼容 natmap）
+//   windows  -> 仅 IPv4，auto_redirect=false
+//   linux    -> 仅 IPv4，auto_redirect=true
 
 log('开始生成 sing-box 配置')
 
@@ -132,11 +129,13 @@ if (baseValidProxies.length === 0) {
   throw new Error('过滤说明节点后没有有效节点')
 }
 
-// Oracle 直连节点可以保留协议描述中的 -CF，但绝不能被普通/LIVE
-// Cloudflare 优选展开逻辑克隆。
-function isOracleDirect(nodeName) {
-  return /^ORACLE-P3-JP-TOKYO-DIRECT(?:-|$)/i.test(String(nodeName || ''))
-}
+// Oracle 节点一律不参与 Cloudflare 域名优选，保留原始 server。
+const isOracleNode = nodeName =>
+  /^ORACLE-/i.test(String(nodeName || ''))
+
+// Oracle 直连节点（保留协议描述中的 -CF），只归入 ☁️ Oracle直连 组。
+const isOracleDirect = nodeName =>
+  /^ORACLE-P3-JP-TOKYO-DIRECT(?:-|$)/i.test(String(nodeName || ''))
 
 // Cloudflare 优选入口展开。
 // 新版默认：一个原始 -CF 节点克隆为 -CF-CU / -CF-FAST。
@@ -169,21 +168,11 @@ const isBackupAirport = nodeName =>
   /^AIR-P2-BACKUP-/i.test(nodeName)
 
 const isCloudflareOptimized = nodeName =>
-  !isOracleDirect(nodeName) &&
+  !isOracleNode(nodeName) &&
   /-CF(?:-(?:CU|FAST|BEST))?$/i.test(nodeName)
 
 const isCloudflareLive = nodeName =>
   /-CF-LIVE$/i.test(nodeName)
-
-const isOracleOptimized = nodeName =>
-  /^ORACLE-P2-.*-CF(?:-(?:CU|FAST|BEST))?$/i.test(nodeName)
-
-const isOracleLive = nodeName =>
-  /^ORACLE-P2-.*-CF-LIVE$/i.test(nodeName)
-
-// 普通 CF 和 LIVE CF 分开管理。
-ensureOracleOptimizedGroup(config, nodeNames.filter(isOracleOptimized))
-ensureOracleLiveGroup(config, nodeNames.filter(isOracleLive))
 
 const isOrdinary = nodeName =>
   /^AIR-P3-XL-/i.test(nodeName)
@@ -215,14 +204,6 @@ const defaultGroupMatchers = [
   {
     group: /^🛟 (?:赠送备用|备用机场)$/,
     match: isBackupAirport
-  },
-  {
-    group: /^☁️ Oracle优化$/,
-    match: isOracleOptimized
-  },
-  {
-    group: /^📺 Oracle直播$/,
-    match: isOracleLive
   },
   {
     group: /^☁️ (?:CF优化|CDN优化)$/,
@@ -327,8 +308,6 @@ const removableDynamicTags = new Set([
   '🚄 机场高速',
   '🛟 赠送备用',
   '🛟 备用机场',
-  '☁️ Oracle优化',
-  '📺 Oracle直播',
   '☁️ CF优化',
   '☁️ CDN优化',
   '🎬 Poly线路',
@@ -421,7 +400,20 @@ config.outbounds.push(
   ...validProxies.filter(proxy => !existingTags.has(proxy.tag))
 )
 
-if (platform.includes('android')) {
+if (platform.includes('openwrt')) {
+  // OpenWrt：按系统服务方式落地，缓存与面板路径使用 /etc/sing-box。
+  if (config.experimental?.cache_file) {
+    config.experimental.cache_file.path = '/etc/sing-box/cache.db'
+  }
+
+  if (config.experimental?.clash_api) {
+    config.experimental.clash_api.external_controller = '0.0.0.0:9095'
+    config.experimental.clash_api.external_ui = '/etc/sing-box/ui'
+  }
+
+  setAutoRedirect(config, true)
+  // strict_route 保持 base 配置的 false，避免抢占默认路由，保证 natmap 可用。
+} else if (platform.includes('android')) {
   if (!toBoolean(keepExperimental, false)) {
     delete config.experimental
   } else {
@@ -464,175 +456,6 @@ if (resolvedIPv6Mode === 'ipv4') {
 $content = JSON.stringify(config, null, 2)
 
 log(`生成完成，最终节点 ${validProxies.length} 个`)
-
-function ensureOracleLiveGroup(config, liveNodeNames) {
-  if (!Array.isArray(liveNodeNames) || liveNodeNames.length === 0) {
-    return
-  }
-
-  if (!Array.isArray(config.outbounds)) {
-    config.outbounds = []
-  }
-
-  let group = config.outbounds.find(
-    item => item && item.tag === '📺 Oracle直播'
-  )
-
-  if (!group) {
-    group = {
-      tag: '📺 Oracle直播',
-      type: 'selector',
-      outbounds: [],
-      interrupt_exist_connections: true
-    }
-
-    // 放在普通 Oracle 优化组后面，避免 LIVE 变成父 selector 的隐式默认项。
-    let insertIndex = config.outbounds.findIndex(
-      item => item && item.tag === '☁️ Oracle优化'
-    )
-
-    if (insertIndex >= 0) {
-      insertIndex += 1
-    } else {
-      insertIndex = config.outbounds.findIndex(
-        item => item && item.tag === '🐸 手动选择'
-      )
-    }
-
-    if (insertIndex < 0) {
-      config.outbounds.push(group)
-    } else {
-      config.outbounds.splice(insertIndex, 0, group)
-    }
-
-    log('自动创建策略组：📺 Oracle直播')
-  }
-
-  group.type = 'selector'
-  group.interrupt_exist_connections = true
-  group.outbounds = unique([
-    ...(Array.isArray(group.outbounds) ? group.outbounds : []),
-    ...liveNodeNames
-  ])
-
-  if (!group.default || !group.outbounds.includes(group.default)) {
-    group.default = group.outbounds[0]
-  }
-
-  // 只挂到主 selector / GLOBAL，不自动给任何业务规则分流。
-  // 用户可以整组切换到“📺 Oracle直播”，避免 TikTok 同一 App 内拆出口。
-  for (const parentTag of ['🚀 默认代理', 'GLOBAL']) {
-    const parent = config.outbounds.find(
-      item => item && item.tag === parentTag
-    )
-
-    if (!parent || parent.type !== 'selector') continue
-    if (!Array.isArray(parent.outbounds)) parent.outbounds = []
-    if (parent.outbounds.includes('📺 Oracle直播')) continue
-
-    const oracleIndex = parent.outbounds.indexOf('☁️ Oracle优化')
-    if (oracleIndex >= 0) {
-      parent.outbounds.splice(oracleIndex + 1, 0, '📺 Oracle直播')
-    } else {
-      const manualIndex = parent.outbounds.indexOf('🐸 手动选择')
-      if (manualIndex >= 0) {
-        parent.outbounds.splice(manualIndex, 0, '📺 Oracle直播')
-        continue
-      }
-      parent.outbounds.push('📺 Oracle直播')
-    }
-  }
-}
-
-function ensureOracleOptimizedGroup(config, oracleNodeNames) {
-  if (!Array.isArray(oracleNodeNames) || oracleNodeNames.length === 0) {
-    return
-  }
-
-  if (!Array.isArray(config.outbounds)) {
-    config.outbounds = []
-  }
-
-  let group = config.outbounds.find(
-    item => item && item.tag === '☁️ Oracle优化'
-  )
-
-  if (!group) {
-    group = {
-      tag: '☁️ Oracle优化',
-      type: 'urltest',
-      outbounds: [],
-      url: 'https://www.gstatic.com/generate_204',
-      interval: '5m',
-      tolerance: 100,
-      idle_timeout: '30m',
-      interrupt_exist_connections: false
-    }
-
-    // 放在 Oracle直连 前面；找不到时放到手动选择前面；再不行则追加。
-    let insertIndex = config.outbounds.findIndex(
-      item => item && item.tag === '☁️ Oracle直连'
-    )
-
-    if (insertIndex < 0) {
-      insertIndex = config.outbounds.findIndex(
-        item => item && item.tag === '🐸 手动选择'
-      )
-    }
-
-    if (insertIndex < 0) {
-      config.outbounds.push(group)
-    } else {
-      config.outbounds.splice(insertIndex, 0, group)
-    }
-
-    log(`自动创建策略组：☁️ Oracle优化`)
-  }
-
-  if (!Array.isArray(group.outbounds)) {
-    group.outbounds = []
-  }
-
-  group.outbounds = unique([
-    ...group.outbounds,
-    ...oracleNodeNames
-  ])
-
-  // 把 Oracle 优选组挂到常用父 selector。
-  for (const parentTag of ['🚀 默认代理', 'GLOBAL']) {
-    const parent = config.outbounds.find(
-      item => item && item.tag === parentTag
-    )
-
-    if (!parent || parent.type !== 'selector') continue
-
-    if (!Array.isArray(parent.outbounds)) {
-      parent.outbounds = []
-    }
-
-    if (!parent.outbounds.includes('☁️ Oracle优化')) {
-      let beforeTag = ''
-
-      if (parentTag === '🚀 默认代理') {
-        beforeTag = parent.outbounds.includes('☁️ Oracle直连')
-          ? '☁️ Oracle直连'
-          : '🐸 手动选择'
-      } else {
-        beforeTag = parent.outbounds.includes('☁️ Oracle直连')
-          ? '☁️ Oracle直连'
-          : '🐸 手动选择'
-      }
-
-      const index = parent.outbounds.indexOf(beforeTag)
-
-      if (index >= 0) {
-        parent.outbounds.splice(index, 0, '☁️ Oracle优化')
-      } else {
-        parent.outbounds.push('☁️ Oracle优化')
-      }
-    }
-  }
-}
 
 function expandCloudflareDialDomains(config, proxies, options) {
   const {
@@ -679,7 +502,7 @@ function expandCloudflareDialDomains(config, proxies, options) {
     let matched = 0
 
     for (const proxy of proxies) {
-      if (!regex.test(proxy.tag) || !proxy.server || isOracleDirect(proxy.tag)) {
+      if (!regex.test(proxy.tag) || !proxy.server || isOracleNode(proxy.tag)) {
         output.push(proxy)
         continue
       }
@@ -731,7 +554,7 @@ function expandCloudflareDialDomains(config, proxies, options) {
     let count = 0
 
     const legacy = proxies.map(proxy => {
-      if (!regex.test(proxy.tag) || !proxy.server || isOracleDirect(proxy.tag)) {
+      if (!regex.test(proxy.tag) || !proxy.server || isOracleNode(proxy.tag)) {
         return proxy
       }
 
@@ -806,7 +629,7 @@ function expandCloudflareDialDomains(config, proxies, options) {
 
   for (const proxy of proxies) {
     // 只处理原始 -CF 节点，默认正则不会重新匹配 -CF-CU / -CF-FAST。
-    if (!regex.test(proxy.tag) || !proxy.server || isOracleDirect(proxy.tag)) {
+    if (!regex.test(proxy.tag) || !proxy.server || isOracleNode(proxy.tag)) {
       output.push(proxy)
       continue
     }
@@ -945,8 +768,12 @@ function resolveIPv6Mode({
   if (toBoolean(disableIPv6, false)) return 'ipv4'
   if (toBoolean(enableIPv6, false)) return 'dual'
 
-// Windows 无原生 IPv6 的场景默认只使用 IPv4；Android/iOS 等客户端默认双栈。
-  if (platform.includes('windows')) return 'ipv4'
+  // 四环境默认：
+  //   windows / linux -> 仅 IPv4（Windows 无原生 IPv6，Linux 服务器仅 IPv4）
+  //   android / openwrt -> IPv6 优先
+  if (platform.includes('openwrt')) return 'prefer_ipv6'
+  if (platform.includes('windows') || platform.includes('linux')) return 'ipv4'
+  if (platform.includes('android')) return 'prefer_ipv6'
 
   return 'dual'
 }
