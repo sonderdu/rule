@@ -199,6 +199,11 @@
         "🇺🇸 美国优选",
         "☁️ Oracle直连",
         "🪶 星链普通",
+        "🌐 Google",
+        "🐦 Twitter",
+        "🎞 Emby",
+        "🐙 GitHub",
+        "📱 TikTok",
         "🐸 手动选择"
       ],
       "interrupt_exist_connections": true,
@@ -377,6 +382,36 @@
       "interrupt_exist_connections": true
     },
     {
+      "tag": "🌐 Google",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🐦 Twitter",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🎞 Emby",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "🐙 GitHub",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag": "📱 TikTok",
+      "type": "selector",
+      "outbounds": [],
+      "interrupt_exist_connections": true
+    },
+    {
       "tag": "🐸 手动选择",
       "type": "selector",
       "outbounds": [],
@@ -409,10 +444,13 @@
         "🎬 Poly线路",
         "☁️ Oracle直连",
         "🪶 星链普通",
-        "🐠 漏网之鱼",
+        "🌐 Google",
+        "🐦 Twitter",
+        "🎞 Emby",
+        "🐙 GitHub",
+        "📱 TikTok",
         "🐸 手动选择",
-        "🧪 测试节点",
-        "🎯 全球直连"
+        "🧪 测试节点"
       ],
       "interrupt_exist_connections": true,
       "default": "🚀 默认代理"
