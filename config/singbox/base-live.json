@@ -212,68 +212,32 @@
     {
       "tag": "🧠 AI",
       "type": "selector",
-      "outbounds": [
-        "⭐ 自建主力",
-        "🤝 合租高速",
-        "🚄 机场5X",
-        "🇺🇸 美国优选",
-        "🇸🇬 新加坡优选",
-        "🛟 赠送备用",
-        "🐸 手动选择"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "⭐ 自建主力"
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🔐 Microsoft认证",
       "type": "selector",
-      "outbounds": [
-        "🎯 全球直连",
-        "🚀 默认代理"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "🎯 全球直连"
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "📲 Telegram",
       "type": "selector",
-      "outbounds": [
-        "⭐ 自建主力",
-        "🤝 合租高速",
-        "🇸🇬 新加坡优选",
-        "🇯🇵 日本优选",
-        "🛟 赠送备用",
-        "🚀 默认代理",
-        "🐸 手动选择"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "🚀 默认代理"
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "🍏 Apple",
       "type": "selector",
-      "outbounds": [
-        "🎯 全球直连",
-        "🚀 默认代理"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "🎯 全球直连"
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "📺 YouTube",
       "type": "selector",
-      "outbounds": [
-        "🚀 默认代理",
-        "⭐ 自建主力",
-        "🤝 合租高速",
-        "🚄 机场5X",
-        "🎬 Poly线路",
-        "☁️ Oracle直连",
-        "🪶 星链普通",
-        "🐸 手动选择"
-      ],
-      "interrupt_exist_connections": true,
-      "default": "🚀 默认代理"
+      "outbounds": [],
+      "interrupt_exist_connections": true
     },
     {
       "tag": "⭐ 自建主力",
