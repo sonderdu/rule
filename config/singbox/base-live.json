@@ -218,8 +218,12 @@
     {
       "tag": "🔐 Microsoft认证",
       "type": "selector",
-      "outbounds": [],
-      "interrupt_exist_connections": true
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 默认代理"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🎯 全球直连"
     },
     {
       "tag": "📲 Telegram",
@@ -230,8 +234,12 @@
     {
       "tag": "🍏 Apple",
       "type": "selector",
-      "outbounds": [],
-      "interrupt_exist_connections": true
+      "outbounds": [
+        "🎯 全球直连",
+        "🚀 默认代理"
+      ],
+      "interrupt_exist_connections": true,
+      "default": "🎯 全球直连"
     },
     {
       "tag": "📺 YouTube",
