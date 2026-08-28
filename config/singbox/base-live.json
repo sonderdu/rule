@@ -131,8 +131,7 @@
           "ggpht.com",
           "ai.google.dev"
         ],
-        "server": "dns-gemini",
-        "strategy": "ipv4_only"
+        "server": "dns-gemini"
       },
       {
         "rule_set": [
