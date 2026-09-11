@@ -9,7 +9,7 @@
       {
         "tag": "dns-local-bootstrap",
         "type": "udp",
-        "server": "114.114.114.114",
+        "server": "223.5.5.5",
         "server_port": 53
       },
       {
