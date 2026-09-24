@@ -107,7 +107,8 @@
           "googlevideo.com",
           "services.googleapis.cn",
           "googleapis.cn",
-          "xn--ngstr-lra8j.com"
+          "xn--ngstr-lra8j.com",
+          "challenges.cloudflare.com"
         ],
         "server": "dns-proxy"
       },
